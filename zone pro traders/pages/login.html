@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Zone Pro Trader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'accent-main': '#4CAF50',
+                'accent-light': '#81C784',
+                'accent-dark': '#388E3C',
+              },
+              fontFamily: {
+                'inter': ['Inter', 'sans-serif'],
+              }
+            }
+          }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4 overflow-x-hidden">
+
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-5xl overflow-hidden flex flex-col md:flex-row min-h-[500px] md:min-h-[600px]">
+        
+        <!-- Left Side: Branding & Info -->
+        <div class="w-full md:w-1/2 bg-gradient-to-br from-green-50 to-green-100 p-6 md:p-12 flex flex-col justify-between relative">
+            <div>
+                <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4 text-center md:text-left">Welcome to <br class="hidden md:block"/>Zone Pro Trader</h1>
+                <p class="text-gray-600 text-sm md:text-base text-center md:text-left">To keep connected with us please login with your personal info.</p>
+            </div>
+
+            <!-- Illustration Area -->
+            <div class="flex-grow flex items-center justify-center my-6 md:my-8">
+                <div class="relative w-48 h-48 md:w-64 md:h-64 bg-white rounded-full flex items-center justify-center shadow-2xl overflow-hidden border-4 border-accent-main/20 p-8">
+                    <img src="../assets/images/logo bg.png" alt="Zone Pro Trader" class="site-logo w-full h-full object-contain">
+                </div>
+            </div>
+
+            <!-- Community Box -->
+            <div class="bg-white/60 backdrop-blur-sm p-4 rounded-xl border border-white/50 flex items-center gap-4 shadow-sm cursor-pointer hover:bg-white/80 transition-colors mt-4">
+                <div class="bg-black text-white p-2 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+                <div>
+                    <div class="font-bold text-sm flex items-center gap-1">
+                        Join Zone Pro Trader Community 
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </div>
+                    <div class="text-xs text-gray-500">Access Support, Share insights and stay in the know effortlessly.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Login/Signup Form -->
+        <div class="w-full md:w-1/2 bg-white p-8 md:p-12 flex flex-col justify-center">
+            <div class="max-w-md mx-auto w-full">
+                <div id="auth-header">
+                    <h2 id="auth-title" class="text-2xl font-bold text-gray-900 mb-2">Login to Your account</h2>
+                    <p id="auth-subtitle" class="text-sm text-gray-500 mb-8">Don't have an account? <a href="javascript:void(0)" onclick="toggleAuthMode()" class="text-accent-main font-bold hover:underline">Sign Up</a></p>
+                </div>
+
+                <form id="auth-form" class="space-y-4">
+                    <!-- Name Input (Only for Sign Up) -->
+                    <div id="name-field" class="relative hidden">
+                        <label class="block text-xs text-gray-500 mb-1 ml-1">Full Name</label>
+                        <div class="relative">
+                            <input name="fullname" type="text" placeholder="Enter your full name" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="relative">
+                        <label class="block text-xs text-gray-500 mb-1 ml-1">Email Address</label>
+                        <div class="relative">
+                            <input name="email" type="email" placeholder="Enter your email" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors" required>
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="relative">
+                        <label class="block text-xs text-gray-500 mb-1 ml-1">Password</label>
+                        <div class="relative">
+                            <input name="password" type="password" placeholder="Enter your password" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors" required>
+                            <button type="button" onclick="togglePasswordVisibility(this)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                <i data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="forgot-password-link" class="flex justify-between items-center text-sm">
+                        <a href="javascript:void(0)" onclick="handleForgotPassword()" class="font-bold text-gray-700 hover:text-accent-main underline">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="w-full bg-accent-main text-white font-bold py-3 rounded-lg hover:bg-accent-dark transition-colors shadow-lg shadow-green-200 flex items-center justify-center gap-2">
+                        <span id="submit-text">Log In</span>
+                        <div id="loader" class="hidden animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                    </button>
+                </form>
+
+                <div class="relative my-8">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs text-gray-500">
+                        <span class="bg-white px-2">Or continue with</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <button id="google-signin" class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors gap-3">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                        <span class="text-sm font-medium text-gray-700">Continue with Google</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+    <script>
+    let isSignUpMode = false;
+
+    window.toggleAuthMode = function() {
+        isSignUpMode = !isSignUpMode;
+        const title = document.getElementById('auth-title');
+        const subtitle = document.getElementById('auth-subtitle');
+        const submitText = document.getElementById('submit-text');
+        const nameField = document.getElementById('name-field');
+        const forgotLink = document.getElementById('forgot-password-link');
+
+        if (isSignUpMode) {
+            title.textContent = "Create an Account";
+            subtitle.innerHTML = 'Already have an account? <a href="javascript:void(0)" onclick="toggleAuthMode()" class="text-accent-main font-bold hover:underline">Log In</a>';
+            submitText.textContent = "Sign Up";
+            nameField.classList.remove('hidden');
+            forgotLink.classList.add('hidden');
+        } else {
+            title.textContent = "Login to Your account";
+            subtitle.innerHTML = 'Don\'t have an account? <a href="javascript:void(0)" onclick="toggleAuthMode()" class="text-accent-main font-bold hover:underline">Sign Up</a>';
+            submitText.textContent = "Log In";
+            nameField.classList.add('hidden');
+            forgotLink.classList.remove('hidden');
+        }
+    };
+
+    window.togglePasswordVisibility = function(btn) {
+        const input = btn.previousElementSibling;
+        const icon = btn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.setAttribute('data-lucide', 'eye-off');
+        } else {
+            input.type = 'password';
+            icon.setAttribute('data-lucide', 'eye');
+        }
+        lucide.createIcons();
+    };
+
+    const authForm = document.getElementById('auth-form');
+    authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = authForm.email.value;
+        const password = authForm.password.value;
+
+        setLoading(true);
+
+        setTimeout(() => {
+            if (email === 'zoneprotrader@gmail.com' && password === '1234') {
+                localStorage.setItem('zp_user', email);
+                localStorage.setItem('zp_name', 'Admin');
+                localStorage.setItem('zp_uid', 'admin_uid_123');
+                window.location.replace('dashboard.html');
+            } else {
+                alert('Invalid email or password. Please use zoneprotrader@gmail.com and 1234');
+                setLoading(false);
+            }
+        }, 800); // Simulate network request
+    });
+
+    document.getElementById('google-signin').addEventListener('click', () => {
+        alert('Google Sign-In is currently disabled. Please use the email/password login.');
+    });
+
+    window.handleForgotPassword = function() {
+        alert("Password reset is currently disabled.");
+    };
+
+    function setLoading(isLoading) {
+        const btn = document.getElementById('submit-btn');
+        const text = document.getElementById('submit-text');
+        const loader = document.getElementById('loader');
+        
+        if (isLoading) {
+            btn.disabled = true;
+            text.style.opacity = '0.5';
+            loader.classList.remove('hidden');
+        } else {
+            btn.disabled = false;
+            text.style.opacity = '1';
+            loader.classList.add('hidden');
+        }
+    }
+
+    // Check if already logged in
+    if (localStorage.getItem('zp_user') === 'zoneprotrader@gmail.com') {
+        // window.location.replace('dashboard.html');
+    }
+
+    lucide.createIcons();
+</script>
+</html>

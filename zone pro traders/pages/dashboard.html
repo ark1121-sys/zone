@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Feed - Zone Pro Trader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'accent-main': '#4CAF50',
+                'accent-light': '#81C784',
+                'accent-dark': '#388E3C',
+                'sidebar-active': '#e8f5e9', // Light green for active state
+                'text-heading': '#2c3e50',
+                'text-dark': '#34495e',
+                'text-muted': '#7f8c8d',
+              },
+              fontFamily: {
+                'inter': ['Inter', 'sans-serif'],
+                'montserrat': ['Montserrat', 'sans-serif'],
+              }
+            }
+          }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" type="image/png" href="/assets/images/logo bg.png">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="/assets/js/script.js" defer></script>
+    <script>
+        (function() {
+            const user = localStorage.getItem('zp_user');
+            const userName = localStorage.getItem('zp_name');
+            if (!user) {
+                window.location.href = 'login.html';
+            }
+            window.currentUser = user;
+            window.currentUserName = userName;
+        })();
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom scrollbar for sidebar */
+        aside::-webkit-scrollbar {
+            width: 6px;
+        }
+        aside::-webkit-scrollbar-thumb {
+            background-color: #e5e7eb;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-white h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Mobile Header -->
+    <header class="md:hidden bg-white border-b border-gray-100 p-4 flex justify-between items-center z-30 shadow-sm">
+        <div class="flex items-center gap-3">
+            <img src="/assets/images/logo bg.png" alt="Logo" class="site-logo w-12 h-12">
+            <h1 class="font-montserrat font-bold text-gray-900 text-base">ZONE PRO</h1>
+        </div>
+        <button id="mobile-sidebar-toggle" class="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity duration-300 opacity-0"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-white border-r border-gray-100 flex flex-col z-50 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 ease-in-out shadow-xl md:shadow-none h-full">
+        <!-- Sidebar Header / Toggle -->
+        <div class="p-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="/assets/images/logo bg.png" alt="Zone Pro Trader" class="site-logo w-14 h-14">
+                <div>
+                    <h1 class="font-montserrat font-bold text-gray-900 text-lg tracking-tight">ZONE PRO</h1>
+                    <p class="text-[10px] font-bold text-accent-main tracking-widest uppercase">TRADER</p>
+                </div>
+            </div>
+            <!-- Mobile Close Button (Hidden on Desktop) -->
+             <button id="mobile-sidebar-close" class="md:hidden text-gray-400 hover:text-gray-600 transition-colors p-2 hover:bg-gray-50 rounded-lg">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto py-2 space-y-1 pr-4">
+            
+            <!-- Journal Feed (Active) -->
+            <a href="#" class="flex items-center px-6 py-3.5 text-sm font-bold text-accent-dark bg-green-50 rounded-r-full border-l-4 border-accent-main transition-all group shadow-sm">
+                <div class="p-2 bg-green-100 rounded-lg mr-3 group-hover:bg-green-200 transition-colors">
+                    <i data-lucide="newspaper" class="w-5 h-5 text-accent-dark"></i>
+                </div>
+                JOURNAL FEED
+            </a>
+
+            
+
+            <!-- Journal Reporting -->
+            <a href="journal-reporting.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                JOURNAL REPORTING
+            </a>
+
+            <!-- Investment Screener -->
+            <a href="investment-screener.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="search" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                INVESTMENT SCREENER
+            </a>
+
+            <!-- Intraday -->
+            <a href="intraday.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="clock" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                INTRADAY
+            </a>
+
+            <!-- Heatmap -->
+            <a href="heatmap.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="grid" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                HEATMAP
+            </a>
+
+            <!-- Options (F&O) -->
+            <a href="options.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="trending-up" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                OPTIONS (F&O)
+            </a>
+
+            <!-- Other Tools -->
+            <a href="other-tools.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="wrench" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                OTHER TOOLS
+            </a>
+
+            <!-- Announcements -->
+            <a href="announcements.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="megaphone" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                ANNOUNCEMENTS
+            </a>
+
+            <!-- Open a Demat Account -->
+            <a href="open-demat-account.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="briefcase" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                OPEN A DEMAT ACCOUNT
+            </a>
+
+            <!-- My Profile -->
+            <a href="my-profile.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="user" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                MY PROFILE
+            </a>
+        </nav>
+
+        <!-- Logout -->
+        <div class="p-6 border-t border-gray-100 mt-auto">
+            <button id="logout-btn" type="button" class="w-full flex items-center px-4 py-3 text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all group cursor-pointer border-0 bg-transparent">
+                <i data-lucide="log-out" class="w-5 h-5 mr-3 group-hover:text-red-600 transition-colors"></i>
+                LOGOUT
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto bg-white p-4 md:p-12">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-4 md:gap-6">
+            <div class="flex items-center gap-4 md:gap-5">
+                <div class="p-3 md:p-4 bg-green-50 rounded-2xl shadow-sm border border-green-100">
+                    <i data-lucide="newspaper" class="w-6 h-6 md:w-8 md:h-8 text-accent-main"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">JOURNAL FEED</h1>
+                    <p class="text-sm md:text-base text-gray-500 mt-1 font-medium">See what other traders are sharing</p>
+                </div>
+            </div>
+            <button class="w-full md:w-auto bg-black text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                <i data-lucide="plus" class="w-5 h-5"></i>
+                Add Post
+            </button>
+        </div>
+
+        <!-- Feed Container -->
+        <div class="max-w-4xl space-y-10">
+            
+            <!-- Post 1 -->
+            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                <!-- Post Header -->
+                <div class="p-6 flex items-center gap-4 border-b border-gray-50">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-base shadow-md">RS</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-base">Rahul Sharma</h3>
+                        <p class="text-xs text-gray-500 font-medium mt-0.5">Batch 2024 • 2 hours ago</p>
+                    </div>
+                    <button class="ml-auto text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-50">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- Post Content -->
+                <div class="relative bg-gray-100 aspect-video overflow-hidden cursor-pointer">
+                    <!-- Placeholder for Chart Image -->
+                    <img src="../assets/images/bull bg5.jpg" alt="Chart Analysis" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                <div class="p-6 md:p-8">
+                    <p class="text-gray-800 text-base leading-relaxed mb-6 font-medium">
+                        Caught a great breakout on NIFTY today! Waited for the pullback and entered at the perfect level. Risk management is key 📈 <span class="text-accent-main font-bold">#Nifty50 #Breakout</span>
+                    </p>
+
+                    <!-- Actions -->
+                    <div class="flex items-center gap-8 pt-6 border-t border-gray-100">
+                        <button class="flex items-center gap-2 text-gray-500 hover:text-red-500 transition-colors text-sm font-bold group/btn">
+                            <div class="p-2 rounded-full group-hover/btn:bg-red-50 transition-colors">
+                                <i data-lucide="heart" class="w-5 h-5 transition-transform group-active/btn:scale-75"></i>
+                            </div>
+                            42
+                        </button>
+                        <button class="flex items-center gap-2 text-gray-500 hover:text-blue-500 transition-colors text-sm font-bold group/btn">
+                             <div class="p-2 rounded-full group-hover/btn:bg-blue-50 transition-colors">
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                            </div>
+                            Comment
+                        </button>
+                        <button class="ml-auto text-gray-400 hover:text-gray-600 transition-colors">
+                            <i data-lucide="share-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+                <!-- Post Header -->
+                <div class="p-6 flex items-center gap-4 border-b border-gray-50">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-emerald-600 flex items-center justify-center text-white font-bold text-base shadow-md">PP</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-base">Priya Patel</h3>
+                        <p class="text-xs text-gray-500 font-medium mt-0.5">Batch 2023 • 5 hours ago</p>
+                    </div>
+                     <button class="ml-auto text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-50">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                
+                <div class="p-6 md:p-8">
+                     <p class="text-gray-800 text-base leading-relaxed mb-6 font-medium">
+                        Analysis for Bank Nifty tomorrow. Looking for support at 44500 levels. Keep an eye on the 15m candle close. 📉
+                    </p>
+                     <!-- Actions -->
+                    <div class="flex items-center gap-8 pt-6 border-t border-gray-100">
+                        <button class="flex items-center gap-2 text-gray-500 hover:text-red-500 transition-colors text-sm font-bold group/btn">
+                            <div class="p-2 rounded-full group-hover/btn:bg-red-50 transition-colors">
+                                <i data-lucide="heart" class="w-5 h-5 transition-transform group-active/btn:scale-75"></i>
+                            </div>
+                            28
+                        </button>
+                        <button class="flex items-center gap-2 text-gray-500 hover:text-blue-500 transition-colors text-sm font-bold group/btn">
+                            <div class="p-2 rounded-full group-hover/btn:bg-blue-50 transition-colors">
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                            </div>
+                            Comment
+                        </button>
+                         <button class="ml-auto text-gray-400 hover:text-gray-600 transition-colors">
+                            <i data-lucide="share-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // Mobile Sidebar Logic
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
+        const mobileSidebarClose = document.getElementById('mobile-sidebar-close');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+            setTimeout(() => {
+                sidebarOverlay.classList.toggle('opacity-0');
+            }, 50);
+        }
+
+        if (mobileSidebarToggle) mobileSidebarToggle.addEventListener('click', toggleSidebar);
+        if (mobileSidebarClose) mobileSidebarClose.addEventListener('click', toggleSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+    </script>
+</body>
+</html>

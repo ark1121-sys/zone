@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements - Zone Pro Trader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'accent-main': '#4CAF50',
+                'accent-light': '#81C784',
+                'accent-dark': '#388E3C',
+                'sidebar-active': '#e8f5e9',
+                'text-heading': '#2c3e50',
+                'text-dark': '#34495e',
+                'text-muted': '#7f8c8d',
+              },
+              fontFamily: {
+                'inter': ['Inter', 'sans-serif'],
+                'montserrat': ['Montserrat', 'sans-serif'],
+              }
+            }
+          }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/script.js" defer></script>
+    <script>
+        (function() {
+            const user = localStorage.getItem('zp_user');
+            if (!user) {
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        aside::-webkit-scrollbar { width: 6px; }
+        aside::-webkit-scrollbar-thumb { background-color: #e5e7eb; border-radius: 3px; }
+        
+        /* Chat Box Styles */
+        #chat-messages::-webkit-scrollbar { width: 6px; }
+        #chat-messages::-webkit-scrollbar-thumb { background-color: #f1f1f1; border-radius: 10px; }
+        .message-bubble { max-width: 85%; }
+        .reaction-btn { transition: all 0.2s ease; }
+        .reaction-btn:hover { transform: scale(1.2); }
+        .reaction-active { background-color: #e8f5e9; border-color: #4CAF50; color: #388E3C; }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Mobile Header -->
+    <header class="md:hidden bg-white border-b border-gray-100 p-4 flex justify-between items-center z-30 shadow-sm">
+        <div class="flex items-center gap-3">
+            <img src="../assets/images/logo bg.png" alt="Logo" class="site-logo w-12 h-12">
+            <h1 class="font-montserrat font-bold text-gray-900 text-base">ZONE PRO</h1>
+        </div>
+        <button id="mobile-sidebar-toggle" class="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="w-72 bg-white border-r border-gray-100 flex flex-col hidden md:flex h-full shadow-sm z-10">
+        <!-- Sidebar Header -->
+        <div class="p-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="../assets/images/logo bg.png" alt="Zone Pro Trader" class="site-logo w-14 h-14">
+                <div>
+                    <h1 class="font-montserrat font-bold text-gray-900 text-lg tracking-tight">ZONE PRO</h1>
+                    <p class="text-[10px] font-bold text-accent-main tracking-widest uppercase">TRADER</p>
+                </div>
+            </div>
+            <!-- Close Sidebar (Mobile) -->
+            <button id="close-sidebar" class="md:hidden text-gray-400 hover:text-gray-600 transition-colors ml-auto">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto py-2 space-y-1 pr-4">
+            
+            <!-- Journal Feed -->
+            <a href="dashboard.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="newspaper" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                JOURNAL FEED
+            </a>
+
+            
+
+            <!-- Journal Reporting -->
+            <a href="journal-reporting.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                JOURNAL REPORTING
+            </a>
+
+            <!-- Investment Screener -->
+            <a href="investment-screener.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="search" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                INVESTMENT SCREENER
+            </a>
+
+            <!-- Intraday -->
+            <a href="intraday.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="clock" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                INTRADAY
+            </a>
+
+            <!-- Heatmap -->
+            <a href="heatmap.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="grid" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                HEATMAP
+            </a>
+
+            <!-- Options (F&O) -->
+            <a href="options.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="trending-up" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                OPTIONS (F&O)
+            </a>
+
+            <!-- Other Tools -->
+            <a href="other-tools.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="wrench" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                OTHER TOOLS
+            </a>
+
+
+            <!-- Announcements (Active) -->
+            <a href="#" class="flex items-center px-6 py-3.5 text-sm font-bold text-accent-dark bg-green-50 rounded-r-full border-l-4 border-accent-main transition-all group shadow-sm">
+                <div class="p-2 bg-green-100 rounded-lg mr-3 group-hover:bg-green-200 transition-colors">
+                    <i data-lucide="bell" class="w-5 h-5 text-accent-dark"></i>
+                </div>
+                ANNOUNCEMENTS
+            </a>
+
+            <!-- Open a Demat Account -->
+            <a href="open-demat-account.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="briefcase" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                OPEN A DEMAT ACCOUNT
+            </a>
+
+            <!-- My Profile -->
+            <a href="my-profile.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="user" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                MY PROFILE
+            </a>
+        </nav>
+
+        <!-- Logout -->
+        <div class="p-6 border-t border-gray-100 mt-auto">
+            <a href="logout.html" class="flex items-center px-4 py-3 text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all group">
+                <i data-lucide="log-out" class="w-5 h-5 mr-3 group-hover:text-red-600 transition-colors"></i>
+                LOGOUT
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto bg-gray-50 p-8 md:p-12">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-5 mb-10">
+            <a href="dashboard.html" class="p-2.5 bg-white border border-gray-200 hover:bg-gray-50 rounded-xl shadow-sm transition-all group flex items-center gap-2">
+                <i data-lucide="arrow-left" class="w-5 h-5 text-gray-500 group-hover:text-accent-main transition-colors"></i>
+                <span class="hidden md:inline text-sm font-bold text-gray-600 group-hover:text-accent-main uppercase">Back to Dashboard</span>
+            </a>
+            <div class="p-4 bg-green-50 rounded-2xl shadow-sm border border-green-100">
+                <i data-lucide="bell" class="w-8 h-8 text-accent-main"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 tracking-tight uppercase">Announcements</h1>
+                <p class="text-gray-500 mt-1 font-medium">Stay updated with the latest news and alerts</p>
+            </div>
+        </div>
+
+        <!-- Announcements / Chat Container -->
+        <div class="max-w-4xl w-full h-[calc(100vh-220px)] flex flex-col bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+            
+            <!-- Chat Header -->
+            <div class="p-5 border-b border-gray-50 flex items-center justify-between bg-white sticky top-0 z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center">
+                        <i data-lucide="message-square" class="w-5 h-5 text-accent-main"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-gray-900">Official Channel</h2>
+                        <p class="text-xs text-green-500 font-semibold flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> 
+                            Live Announcements
+                        </p>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-400 font-medium bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
+                    Read-only for Students
+                </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-50/30">
+                <!-- Messages will be injected here -->
+                <div id="chat-loader" class="flex flex-col items-center justify-center h-full space-y-4">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-main"></div>
+                    <p class="text-gray-400 text-sm font-medium">Loading messages...</p>
+                </div>
+            </div>
+
+            <!-- Admin Input Area (Hidden for students) -->
+            <div id="admin-input-area" class="hidden p-5 border-t border-gray-100 bg-white">
+                <form id="chat-form" class="flex items-center gap-3">
+                    <div class="flex-1 relative">
+                        <input 
+                            type="text" 
+                            id="message-input" 
+                            placeholder="Type an announcement..." 
+                            class="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-3.5 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all text-gray-700"
+                        >
+                    </div>
+                    <button type="submit" class="bg-accent-main hover:bg-accent-dark text-white p-3.5 rounded-2xl shadow-lg shadow-green-100 transition-all transform active:scale-95">
+                        <i data-lucide="send" class="w-6 h-6"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Student View Footer -->
+            <div id="student-footer" class="p-4 bg-gray-50 text-center border-t border-gray-100">
+                <p class="text-xs text-gray-400 font-medium">Only administrators can send messages here.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Firebase Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc, 
+            onSnapshot, 
+            query, 
+            orderBy, 
+            serverTimestamp,
+            doc,
+            updateDoc,
+            increment,
+            getDoc,
+            setDoc,
+            arrayUnion,
+            arrayRemove
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD4tWalLg0CiPiUJtUOJpHPRmmFEx_elw4",
+            authDomain: "zone-pro-trader-a7870.firebaseapp.com",
+            databaseURL: "https://zone-pro-trader-a7870-default-rtdb.firebaseio.com",
+            projectId: "zone-pro-trader-a7870",
+            storageBucket: "zone-pro-trader-a7870.firebasestorage.app",
+            messagingSenderId: "735761916397",
+            appId: "1:735761916397:web:55e767d08f1ea7b909c7e4",
+            measurementId: "G-TSRLE1WD6V"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const announcementsRef = collection(db, "announcements");
+
+        const userEmail = localStorage.getItem('zp_user');
+        const isAdmin = userEmail === 'zoneprotrader@gmail.com';
+        const uid = localStorage.getItem('zp_uid') || 'anonymous';
+
+        // UI Elements
+        const chatMessages = document.getElementById('chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+        const adminArea = document.getElementById('admin-input-area');
+        const studentFooter = document.getElementById('student-footer');
+
+        // Sidebar Toggle for Mobile
+        const sidebar = document.querySelector('aside');
+        const mobileToggle = document.getElementById('mobile-sidebar-toggle');
+        const closeSidebar = document.getElementById('close-sidebar');
+
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('fixed', 'inset-0', 'z-50', 'flex');
+            });
+        }
+
+        if (closeSidebar) {
+            closeSidebar.addEventListener('click', () => {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('fixed', 'inset-0', 'z-50', 'flex');
+            });
+        }
+
+        if (isAdmin) {
+            adminArea.classList.remove('hidden');
+            studentFooter.classList.add('hidden');
+        }
+
+        // Send Message
+        if (chatForm) {
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const text = messageInput.value.trim();
+                if (!text) return;
+
+                messageInput.value = '';
+                try {
+                    await addDoc(announcementsRef, {
+                        text,
+                        sender: 'Admin',
+                        createdAt: serverTimestamp(),
+                        reactions: {
+                            like: 0,
+                            fire: 0,
+                            rocket: 0
+                        },
+                        reactedUsers: []
+                    });
+                } catch (err) {
+                    console.error("Error sending message:", err);
+                }
+            });
+        }
+
+        // Fetch Messages
+        const q = query(announcementsRef, orderBy("createdAt", "asc"));
+        onSnapshot(q, (snapshot) => {
+            document.getElementById('chat-loader')?.remove();
+            chatMessages.innerHTML = '';
+            
+            if (snapshot.empty) {
+                chatMessages.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-gray-400">
+                        <i data-lucide="message-square-off" class="w-12 h-12 mb-2 opacity-20"></i>
+                        <p class="text-sm">No announcements yet.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const id = docSnap.id;
+                renderMessage(id, data);
+            });
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            lucide.createIcons();
+        });
+
+        function renderMessage(id, data) {
+            const time = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Just now';
+            const reactions = data.reactions || { like: 0, fire: 0, rocket: 0 };
+            const hasReacted = data.reactedUsers?.includes(uid);
+
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex flex-col items-start space-y-1`;
+            msgDiv.innerHTML = `
+                <div class="flex items-center gap-2 px-1">
+                    <span class="text-[10px] font-bold text-accent-dark uppercase tracking-widest">Admin</span>
+                    <span class="text-[10px] text-gray-400 font-medium">${time}</span>
+                </div>
+                <div class="message-bubble bg-white border border-gray-100 p-4 rounded-2xl rounded-tl-none shadow-sm text-gray-800 text-[15px] leading-relaxed relative group">
+                    ${data.text}
+                    
+                    <!-- Reactions -->
+                    <div class="mt-3 flex items-center gap-2">
+                        <button onclick="handleReaction('${id}', 'like')" class="reaction-btn flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-gray-100 bg-gray-50/50 hover:bg-white text-xs font-bold text-gray-500">
+                            👍 <span>${reactions.like || 0}</span>
+                        </button>
+                        <button onclick="handleReaction('${id}', 'fire')" class="reaction-btn flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-gray-100 bg-gray-50/50 hover:bg-white text-xs font-bold text-gray-500">
+                            🔥 <span>${reactions.fire || 0}</span>
+                        </button>
+                        <button onclick="handleReaction('${id}', 'rocket')" class="reaction-btn flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-gray-100 bg-gray-50/50 hover:bg-white text-xs font-bold text-gray-500">
+                            🚀 <span>${reactions.rocket || 0}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(msgDiv);
+        }
+
+        window.handleReaction = async (id, type) => {
+            const docRef = doc(db, "announcements", id);
+            const docSnap = await getDoc(docRef);
+            const data = docSnap.data();
+            
+            // Simple logic: increment the count
+            const updateObj = {};
+            updateObj[`reactions.${type}`] = increment(1);
+            updateObj[`reactedUsers`] = arrayUnion(uid);
+            
+            try {
+                await updateDoc(docRef, updateObj);
+            } catch (err) {
+                console.error("Error reacting:", err);
+            }
+        };
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>

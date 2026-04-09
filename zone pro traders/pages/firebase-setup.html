@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Setup - Zone Pro Trader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-6">
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow border border-gray-100">
+    <h1 class="text-2xl font-bold text-gray-900 mb-4">Firebase Setup</h1>
+    <p class="text-gray-600 mb-6">
+      Paste your Firebase web app config below and sign in anonymously to generate an ID token.
+      The token will be stored locally and used automatically when saving trades.
+    </p>
+    <div class="space-y-4">
+      <label class="block text-sm font-bold text-gray-700">Firebase Config (JSON)</label>
+      <textarea id="config" rows="8" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","databaseURL":"https://...","appId":"..."}'></textarea>
+      <div class="flex items-center gap-3">
+        <button id="save" class="px-4 py-2 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700">Save Config</button>
+        <button id="signin" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">Sign In Anonymously</button>
+        <button id="clear" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-bold hover:bg-gray-300">Clear</button>
+      </div>
+      <div id="status" class="text-sm text-gray-700"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    let app, auth;
+
+    function updateStatus(msg, ok=true) {
+      const el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = 'text-sm ' + (ok ? 'text-green-700' : 'text-red-600');
+    }
+
+    function loadConfig() {
+      const saved = localStorage.getItem('firebase_config');
+      if (saved) {
+        document.getElementById('config').value = saved;
+        try {
+          const cfg = JSON.parse(saved);
+          app = initializeApp(cfg);
+          auth = getAuth(app);
+          updateStatus('Config loaded');
+        } catch (e) {
+          updateStatus('Invalid saved config', false);
+        }
+      }
+    }
+
+    document.getElementById('save').addEventListener('click', () => {
+      const v = document.getElementById('config').value.trim();
+      try {
+        const cfg = JSON.parse(v);
+        localStorage.setItem('firebase_config', v);
+        app = initializeApp(cfg);
+        auth = getAuth(app);
+        updateStatus('Config saved and initialized');
+      } catch (e) {
+        updateStatus('Invalid JSON', false);
+      }
+    });
+
+    document.getElementById('signin').addEventListener('click', async () => {
+      try {
+        if (!auth) {
+          updateStatus('Please save a valid config first', false);
+          return;
+        }
+        const res = await signInAnonymously(auth);
+        const user = res.user;
+        const idToken = await user.getIdToken();
+        localStorage.setItem('firebase_id_token', idToken);
+        localStorage.setItem('zp_uid', user.uid);
+        updateStatus('Signed in anonymously. Token stored.');
+      } catch (e) {
+        updateStatus('Sign-in failed: ' + e.message, false);
+      }
+    });
+
+    document.getElementById('clear').addEventListener('click', () => {
+      localStorage.removeItem('firebase_config');
+      localStorage.removeItem('firebase_id_token');
+      updateStatus('Cleared stored config and token');
+    });
+
+    loadConfig();
+    onAuthStateChanged(getAuth(), async (user) => {
+      if (user) {
+        const idToken = await user.getIdToken();
+        localStorage.setItem('firebase_id_token', idToken);
+        localStorage.setItem('zp_uid', user.uid);
+        updateStatus('Auth state active. Token refreshed.');
+      }
+    });
+  </script>
+</body>
+</html>

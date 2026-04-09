@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plan - Zone Pro Trader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'accent-main': '#4CAF50',
+                'accent-light': '#81C784',
+                'accent-dark': '#388E3C',
+              }
+            }
+          }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .selected-plan { border-color: #22c55e !important; background-color: #f0fdf4 !important; border-width: 2px !important; }
+        .selected-payment { border-color: #22c55e !important; background-color: #f0fdf4 !important; border-width: 2px !important; }
+        .plan-card, .payment-card { transition: all 0.2s ease-in-out; }
+        .plan-card:hover, .payment-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <!-- Header -->
+        <div class="mb-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div class="flex items-center gap-4">
+                <div class="bg-green-50 p-2 rounded-2xl shadow-sm border border-green-100 w-20 h-20 flex items-center justify-center overflow-hidden">
+                    <img src="../assets/images/logo bg.png" alt="Zone Pro Trader" class="site-logo w-full h-full object-contain">
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Subscription Plan</h1>
+                    <p class="text-gray-500 mt-1">Unlock instant access to all existing products and daily new releases.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            
+            <!-- Left Column: Choose Plan -->
+            <div class="space-y-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold">Choose Plan</h2>
+                    <div class="bg-gray-100 p-1 rounded-lg flex text-sm font-medium">
+                        <button id="btn-quarterly" onclick="setTerm('quarterly')" class="bg-white shadow-sm px-4 py-1.5 rounded-md text-gray-900 transition-all">Quarterly</button>
+                        <button id="btn-yearly" onclick="setTerm('yearly')" class="px-4 py-1.5 rounded-md text-gray-500 hover:text-gray-700 transition-all">Yearly</button>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div id="plan-pro" onclick="selectPlan('pro')" class="plan-card bg-white p-6 rounded-xl border border-gray-200 cursor-pointer">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-4">
+                            <div id="radio-pro" class="w-6 h-6 rounded-full border-2 border-gray-300 bg-white transition-colors"></div>
+                            <div>
+                                <h3 class="font-bold text-lg">Pro Plan</h3>
+                                <p class="text-gray-500 text-sm">Crafted for Individuals</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-xl price-display" data-pro-q="59.99" data-pro-y="199.99">$59.99</div>
+                            <div class="text-xs text-gray-500 term-display">1 User / Quarterly</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Plan -->
+                <div id="plan-team" onclick="selectPlan('team')" class="plan-card bg-white p-6 rounded-xl border border-gray-200 cursor-pointer">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-4">
+                            <div id="radio-team" class="w-6 h-6 rounded-full border-2 border-gray-300 bg-white transition-colors"></div>
+                            <div>
+                                <h3 class="font-bold text-lg">Team Plan</h3>
+                                <p class="text-gray-500 text-sm">Crafted for small teams or business</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-xl price-display" data-team-q="189.00" data-team-y="699.00">$189.00</div>
+                            <div class="text-xs text-gray-500 term-display">5 User / Quarterly</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 ml-10 mb-6">
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>50 downloads per day</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Access to all products or bundles.</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Early access to new/beta release features.</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-center ml-10" onclick="event.stopPropagation()">
+                        <div>
+                            <div class="font-semibold text-sm">Team accounts</div>
+                            <div class="text-xs text-gray-500">Starting at 5 users</div>
+                        </div>
+                        <div class="bg-white border border-gray-200 rounded-md flex items-center">
+                            <button onclick="updateQuantity(-1)" class="px-3 py-1 text-gray-500 hover:bg-gray-50 hover:text-green-600 font-bold">-</button>
+                            <span id="team-quantity" class="px-2 font-medium">5</span>
+                            <button onclick="updateQuantity(1)" class="px-3 py-1 text-gray-500 hover:bg-gray-50 hover:text-green-600 font-bold">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Pro -->
+                <div id="plan-business" onclick="selectPlan('business')" class="plan-card bg-white p-6 rounded-xl border border-gray-200 cursor-pointer">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-4">
+                            <div id="radio-business" class="w-6 h-6 rounded-full border-2 border-gray-300 bg-white transition-colors"></div>
+                            <div>
+                                <h3 class="font-bold text-lg">Business Pro</h3>
+                                <p class="text-gray-500 text-sm">For Big Teams</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-xl price-display" data-business-q="350.00" data-business-y="1299.00">$350.00</div>
+                            <div class="text-xs text-gray-500 term-display">20 User / Quarterly</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Payment Plan -->
+            <div class="space-y-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold">Payment Method</h2>
+                    <div class="bg-gray-100 p-1 rounded-lg flex text-sm font-medium">
+                        <button id="btn-card" onclick="setPaymentMethod('card')" class="bg-white shadow-sm px-4 py-1.5 rounded-md text-gray-900 transition-all">Credit Card</button>
+                        <button id="btn-paypal" onclick="setPaymentMethod('paypal')" class="px-4 py-1.5 rounded-md text-gray-500 hover:text-gray-700 transition-all">Paypal</button>
+                    </div>
+                </div>
+
+                <!-- Credit Card Form -->
+                <div id="payment-card-form" class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1 uppercase tracking-wider">Card Number</label>
+                            <div class="relative">
+                                <input type="text" placeholder="0000 0000 0000 0000" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 transition-shadow">
+                                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex gap-2">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="h-4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1 uppercase tracking-wider">Expiry Date</label>
+                                <input type="text" placeholder="MM/YY" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 transition-shadow">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1 uppercase tracking-wider">CVC</label>
+                                <input type="text" placeholder="123" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 transition-shadow">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1 uppercase tracking-wider">Cardholder Name</label>
+                            <input type="text" placeholder="John Doe" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 transition-shadow">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PayPal Info -->
+                <div id="payment-paypal-info" class="hidden bg-white p-8 rounded-xl border border-gray-200 text-center shadow-sm">
+                    <div class="flex justify-center mb-4">
+                         <svg class="h-10 w-10 text-[#0070ba]" fill="currentColor" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.875.812 5.216-.764 3.613-2.045 5.253-3.667 6.353-1.27.85-3.14 1.18-5.34 1.18h-1.07l-.63 3.193-.24 1.22c-.06.326.19.615.52.615h3.66c.412 0 .78-.28.87-.68l.49-2.04c.14-.59.66-1.01 1.27-1.01h.43c2.72 0 4.28-1.32 4.93-4.06.36-1.52.19-2.84-.36-3.85-.88-1.63-2.9-2.43-5.74-2.43H8.38c-.46 0-.86.34-.94.8l-3.2 16.02c-.08.41.23.8.64.8z"/></svg>
+                    </div>
+                    <p class="text-gray-600 mb-6 font-medium">You will be redirected to PayPal to complete your purchase securely.</p>
+                </div>
+
+                <!-- Discount Code -->
+                <div class="mt-8 bg-gray-50 p-6 rounded-xl border border-gray-100">
+                    <h3 class="font-bold mb-3">Discount Code</h3>
+                    <div class="flex gap-2">
+                        <input id="discount-input" type="text" placeholder="Enter code" class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 bg-white uppercase">
+                        <button onclick="applyDiscount()" class="bg-white border border-gray-300 px-6 py-2 rounded-lg font-medium hover:bg-gray-50 hover:text-green-600 transition-colors">Apply</button>
+                    </div>
+                    <p id="discount-message" class="text-sm mt-2 hidden"></p>
+
+                    <div class="mt-6 pt-6 border-t border-gray-200 space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span id="summary-plan-name" class="font-medium text-gray-900">No Plan Selected</span>
+                            <span id="summary-plan-price" class="font-bold">$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span id="summary-plan-detail">Please select a plan</span>
+                        </div>
+                        <div id="summary-discount-row" class="flex justify-between text-sm text-green-600 font-medium hidden">
+                            <span>Discount</span>
+                            <span id="summary-discount-amount">-$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold text-gray-900 pt-2 border-t border-gray-200 mt-2">
+                            <span>Total</span>
+                            <span id="summary-total">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="confirmSubscription()" class="w-full mt-6 bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition-all shadow-lg shadow-green-200 active:scale-95">
+                        Confirm Subscription
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-12 text-center">
+            <a href="index.html" class="text-gray-500 hover:text-gray-900 font-medium flex items-center justify-center gap-2 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                Back to Home
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // State
+        const state = {
+            plan: null, // 'pro', 'team', 'business'
+            term: 'quarterly', // 'quarterly', 'yearly'
+            payment: 'card', // 'card', 'paypal'
+            teamQuantity: 5,
+            discount: 0, // percentage
+            discountCode: ''
+        };
+
+        const prices = {
+            pro: { quarterly: 59.99, yearly: 199.99 },
+            team: { quarterly: 189.00, yearly: 699.00 }, // Base for 5 users
+            business: { quarterly: 350.00, yearly: 1299.00 }
+        };
+
+        const validCoupons = {
+            '30KCELEB': 30,
+            'ZONEPRO': 10,
+            'WELCOME': 15
+        };
+
+        function formatMoney(amount) {
+            return '$' + amount.toFixed(2);
+        }
+
+        function setTerm(term) {
+            state.term = term;
+            
+            // Update toggle buttons
+            const btnQ = document.getElementById('btn-quarterly');
+            const btnY = document.getElementById('btn-yearly');
+            
+            if (term === 'quarterly') {
+                btnQ.className = "bg-white shadow-sm px-4 py-1.5 rounded-md text-gray-900 transition-all";
+                btnY.className = "px-4 py-1.5 rounded-md text-gray-500 hover:text-gray-700 transition-all";
+            } else {
+                btnY.className = "bg-white shadow-sm px-4 py-1.5 rounded-md text-gray-900 transition-all";
+                btnQ.className = "px-4 py-1.5 rounded-md text-gray-500 hover:text-gray-700 transition-all";
+            }
+
+            // Update displayed prices on cards
+            document.querySelectorAll('.price-display').forEach(el => {
+                if (el.dataset.proQ) el.textContent = term === 'quarterly' ? formatMoney(prices.pro.quarterly) : formatMoney(prices.pro.yearly);
+                if (el.dataset.teamQ) el.textContent = term === 'quarterly' ? formatMoney(prices.team.quarterly) : formatMoney(prices.team.yearly);
+                if (el.dataset.businessQ) el.textContent = term === 'quarterly' ? formatMoney(prices.business.quarterly) : formatMoney(prices.business.yearly);
+            });
+
+            // Update term text
+            document.querySelectorAll('.term-display').forEach(el => {
+                const text = el.textContent;
+                const newText = term === 'quarterly' ? text.replace('Yearly', 'Quarterly') : text.replace('Quarterly', 'Yearly');
+                el.textContent = newText;
+            });
+
+            updateSummary();
+        }
+
+        function selectPlan(planId) {
+            state.plan = planId;
+            
+            // Reset all plans
+            ['pro', 'team', 'business'].forEach(p => {
+                const el = document.getElementById(`plan-${p}`);
+                const radio = document.getElementById(`radio-${p}`);
+                el.classList.remove('selected-plan');
+                radio.classList.remove('border-[6px]', 'border-green-500');
+                radio.classList.add('border-2', 'border-gray-300');
+            });
+
+            // Select clicked plan
+            const selectedEl = document.getElementById(`plan-${planId}`);
+            const selectedRadio = document.getElementById(`radio-${planId}`);
+            selectedEl.classList.add('selected-plan');
+            selectedRadio.classList.remove('border-2', 'border-gray-300');
+            selectedRadio.classList.add('border-[6px]', 'border-green-500');
+
+            updateSummary();
+        }
+
+        function setPaymentMethod(method) {
+            state.payment = method;
+            
+            const btnCard = document.getElementById('btn-card');
+            const btnPaypal = document.getElementById('btn-paypal');
+            const formCard = document.getElementById('payment-card-form');
+            const infoPaypal = document.getElementById('payment-paypal-info');
+            
+            if (method === 'card') {
+                btnCard.className = "bg-white shadow-sm px-4 py-1.5 rounded-md text-gray-900 transition-all";
+                btnPaypal.className = "px-4 py-1.5 rounded-md text-gray-500 hover:text-gray-700 transition-all";
+                formCard.classList.remove('hidden');
+                infoPaypal.classList.add('hidden');
+            } else {
+                btnPaypal.className = "bg-white shadow-sm px-4 py-1.5 rounded-md text-gray-900 transition-all";
+                btnCard.className = "px-4 py-1.5 rounded-md text-gray-500 hover:text-gray-700 transition-all";
+                formCard.classList.add('hidden');
+                infoPaypal.classList.remove('hidden');
+            }
+        }
+
+        function updateQuantity(change) {
+            let newQty = state.teamQuantity + change;
+            if (newQty < 5) newQty = 5; // Minimum 5
+            state.teamQuantity = newQty;
+            document.getElementById('team-quantity').textContent = newQty;
+            
+            // If team plan is selected, updating quantity updates price
+            if (state.plan === 'team') {
+                updateSummary();
+            }
+        }
+
+        function applyDiscount() {
+            const code = document.getElementById('discount-input').value.toUpperCase().trim();
+            const msgEl = document.getElementById('discount-message');
+            
+            if (validCoupons[code]) {
+                state.discount = validCoupons[code];
+                state.discountCode = code;
+                msgEl.textContent = `${state.discount}% Discount code applied!`;
+                msgEl.className = "text-sm mt-2 text-green-600 block";
+                updateSummary();
+            } else {
+                state.discount = 0;
+                state.discountCode = '';
+                msgEl.textContent = "Invalid discount code.";
+                msgEl.className = "text-sm mt-2 text-red-500 block";
+                updateSummary();
+            }
+        }
+
+        function updateSummary() {
+            const planNameEl = document.getElementById('summary-plan-name');
+            const planPriceEl = document.getElementById('summary-plan-price');
+            const planDetailEl = document.getElementById('summary-plan-detail');
+            const totalEl = document.getElementById('summary-total');
+            const discountRow = document.getElementById('summary-discount-row');
+            const discountAmountEl = document.getElementById('summary-discount-amount');
+
+            if (!state.plan) {
+                planNameEl.textContent = "No Plan Selected";
+                planPriceEl.textContent = "$0.00";
+                planDetailEl.textContent = "Please select a plan";
+                totalEl.textContent = "$0.00";
+                discountRow.classList.add('hidden');
+                return;
+            }
+
+            let basePrice = prices[state.plan][state.term];
+            
+            // Adjust for quantity if Team Plan
+            if (state.plan === 'team') {
+                const extraUsers = state.teamQuantity - 5;
+                if (extraUsers > 0) {
+                    // Assuming $20 per extra user per term for simplicity
+                    const costPerUser = state.term === 'quarterly' ? 20 : 70;
+                    basePrice += (extraUsers * costPerUser);
+                }
+            }
+
+            // Display Plan Info
+            const planDisplayNames = { pro: 'Pro Plan', team: 'Team Plan', business: 'Business Pro' };
+            planNameEl.textContent = planDisplayNames[state.plan];
+            planPriceEl.textContent = formatMoney(basePrice);
+            
+            let userCount = '1 User';
+            if (state.plan === 'team') userCount = `${state.teamQuantity} Users`;
+            if (state.plan === 'business') userCount = '20 Users';
+            
+            planDetailEl.textContent = `${userCount} / ${state.term.charAt(0).toUpperCase() + state.term.slice(1)}`;
+
+            // Calculate Total
+            let total = basePrice;
+            if (state.discount > 0) {
+                const discountVal = total * (state.discount / 100);
+                total -= discountVal;
+                
+                discountRow.classList.remove('hidden');
+                discountAmountEl.textContent = `-${formatMoney(discountVal)}`;
+                discountRow.querySelector('span:first-child').textContent = `Discount (${state.discount}%)`;
+            } else {
+                discountRow.classList.add('hidden');
+            }
+
+            totalEl.textContent = formatMoney(total);
+        }
+
+        function confirmSubscription() {
+            if (!state.plan) {
+                alert("Please select a subscription plan.");
+                return;
+            }
+            
+            const total = document.getElementById('summary-total').textContent;
+            let msg = `Subscription Confirmed!\nPlan: ${state.plan.toUpperCase()}\nTerm: ${state.term.toUpperCase()}\nTotal: ${total}`;
+            
+            if (state.payment === 'card') {
+                msg += `\nPayment Method: Credit Card`;
+            } else {
+                msg += `\nPayment Method: PayPal`;
+            }
+
+            alert(msg + `\n\nThank you for subscribing to Zone Pro Trader!`);
+            
+            // Redirect to home after success
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
+        }
+
+        // Initialize
+        setTerm('quarterly');
+    </script>
+</body>
+</html>

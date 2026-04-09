@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Heatmap - Zone Pro Trader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/heatmap.css">
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                'accent-main': '#4CAF50',
+                'accent-light': '#81C784',
+                'accent-dark': '#388E3C',
+                'sidebar-active': '#e8f5e9',
+                'text-heading': '#2c3e50',
+                'text-dark': '#34495e',
+                'text-muted': '#7f8c8d',
+              },
+              fontFamily: {
+                'inter': ['Inter', 'sans-serif'],
+                'montserrat': ['Montserrat', 'sans-serif'],
+              }
+            }
+          }
+        }
+    </script>
+    <link rel="icon" type="image/png" href="../assets/images/logo bg.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        aside::-webkit-scrollbar { width: 6px; }
+        aside::-webkit-scrollbar-thumb { background-color: #e5e7eb; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-72 bg-white border-r border-gray-100 flex flex-col hidden md:flex h-full shadow-sm z-10">
+        <!-- Sidebar Header -->
+        <div class="p-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="../assets/images/logo bg.png" alt="Zone Pro Trader" class="site-logo w-14 h-14">
+                <div>
+                    <h1 class="font-montserrat font-bold text-gray-900 text-lg tracking-tight">ZONE PRO</h1>
+                    <p class="text-[10px] font-bold text-accent-main tracking-widest uppercase">TRADER</p>
+                </div>
+            </div>
+            <!-- Mobile Toggle -->
+            <button class="md:hidden text-gray-400 hover:text-gray-600 transition-colors ml-auto">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto py-2 space-y-1 pr-4">
+            
+            <!-- Journal Feed -->
+            <a href="dashboard.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="newspaper" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                JOURNAL FEED
+            </a>
+
+            <!-- Journal Reporting -->
+            <a href="journal-reporting.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                JOURNAL REPORTING
+            </a>
+
+            <!-- Investment Screener -->
+            <a href="investment-screener.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="search" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                INVESTMENT SCREENER
+            </a>
+
+            <!-- Intraday -->
+            <a href="intraday.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="clock" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                INTRADAY
+            </a>
+
+            <!-- Heatmap (Active) -->
+            <a href="#" class="flex items-center px-6 py-3.5 text-sm font-bold text-accent-dark bg-green-50 rounded-r-full border-l-4 border-accent-main transition-all group shadow-sm">
+                <div class="p-2 bg-green-100 rounded-lg mr-3 group-hover:bg-green-200 transition-colors">
+                    <i data-lucide="grid" class="w-5 h-5 text-accent-dark"></i>
+                </div>
+                HEATMAP
+            </a>
+
+            <!-- Options (F&O) -->
+            <a href="options.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="trending-up" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                OPTIONS (F&O)
+            </a>
+
+            <!-- Other Tools -->
+            <a href="other-tools.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="wrench" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                OTHER TOOLS
+            </a>
+
+            <!-- Announcements -->
+            <a href="announcements.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="megaphone" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                ANNOUNCEMENTS
+            </a>
+
+            <!-- Open a Demat Account -->
+            <a href="open-demat-account.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="briefcase" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                OPEN A DEMAT ACCOUNT
+            </a>
+
+            <!-- My Profile -->
+            <a href="my-profile.html" class="flex items-center px-6 py-3.5 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-r-full transition-all group border-l-4 border-transparent hover:border-gray-200">
+                <div class="p-2 bg-gray-50 rounded-lg mr-3 group-hover:bg-gray-100 transition-colors">
+                    <i data-lucide="user" class="w-5 h-5 text-gray-400 group-hover:text-gray-600"></i>
+                </div>
+                MY PROFILE
+            </a>
+        </nav>
+
+        <!-- Logout -->
+        <div class="p-6 border-t border-gray-100 mt-auto">
+            <a href="logout.html" class="flex items-center px-4 py-3 text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all group">
+                <i data-lucide="log-out" class="w-5 h-5 mr-3 group-hover:text-red-600 transition-colors"></i>
+                LOGOUT
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto bg-gray-50 p-8 md:p-12">
+        <!-- Header -->
+        <div class="flex items-center gap-5 mb-10">
+            <div class="p-4 bg-green-50 rounded-2xl shadow-sm border border-green-100">
+                <i data-lucide="grid" class="w-8 h-8 text-accent-main"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 tracking-tight uppercase">Market Heatmap</h1>
+                <p class="text-gray-500 mt-1 font-medium">Sector-wise stock performance visualization</p>
+            </div>
+        </div>
+
+        <!-- Heatmap Grid -->
+        <div id="heatmap" class="shadow-sm border border-gray-100">
+            <div class="heatmap-header">
+                <div class="heatmap-title">
+                    <span>Heatmap</span>
+                    <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div id="heatmapContainer" class="heatmap-root"></div>
+
+            <div class="heatmap-controls">
+                <div class="heatmap-filter-box">
+                    <label for="sectorFilter">Sector</label>
+                    <select id="sectorFilter">
+                        <option value="all">All</option>
+                    </select>
+
+                    <label for="changeFilter">Change</label>
+                    <select id="changeFilter">
+                        <option value="all">All</option>
+                        <option value="gainers">Gainers</option>
+                        <option value="losers">Losers</option>
+                        <option value="neutral">Neutral</option>
+                    </select>
+                </div>
+
+                <div class="heatmap-legend">
+                    <span>-2%</span>
+                    <div class="legend-strip legend-red-dark"></div>
+                    <div class="legend-strip legend-red"></div>
+                    <div class="legend-strip legend-neutral"></div>
+                    <div class="legend-strip legend-green"></div>
+                    <div class="legend-strip legend-green-dark"></div>
+                    <span>2%</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const LOGO_DEV_TOKEN = "pk_N2e20U-cRgeS7JVxXojiBw";
+
+        const sectorOrder = [
+            "Finance",
+            "Technology Services",
+            "Consumer Non-Durables",
+            "Consumer Durables",
+            "Energy Minerals",
+            "Non Energy Minerals",
+            "Industrial Services",
+            "Utilities",
+            "Communications",
+            "Process Industries",
+            "Health Technology",
+            "Others"
+        ];
+
+        function createTileColor(change) {
+            if (change >= 1.5) return "tile-green-dark";
+            if (change > 0) return "tile-green";
+            if (change === 0) return "tile-neutral";
+            if (change > -1.5) return "tile-red";
+            return "tile-red-dark";
+        }
+
+        function getLogo(domain) {
+            if (!domain || !LOGO_DEV_TOKEN || LOGO_DEV_TOKEN === "YOUR_LOGO_DEV_PUBLISHABLE_KEY") {
+                return "";
+            }
+            return `https://img.logo.dev/${domain}?token=${LOGO_DEV_TOKEN}&size=64&format=png`;
+        }
+
+        function populateSectorFilter(data) {
+            const sectorFilter = document.getElementById("sectorFilter");
+            if (!sectorFilter) return;
+
+            const currentValue = sectorFilter.value || "all";
+            const sectors = [...new Set(data.map(item => item.sector).filter(Boolean))];
+
+            sectorFilter.innerHTML = `<option value="all">All</option>`;
+
+            sectors.forEach(sector => {
+                const option = document.createElement("option");
+                option.value = sector;
+                option.textContent = sector;
+                sectorFilter.appendChild(option);
+            });
+
+            sectorFilter.value = sectors.includes(currentValue) ? currentValue : "all";
+        }
+
+        async function loadHeatmap() {
+            const container = document.getElementById("heatmapContainer");
+            try {
+                // Show loading indicator if container is empty
+                if (container.innerHTML === "") {
+                    container.innerHTML = `<div class="w-full flex items-center justify-center p-20 text-white font-medium">
+                        <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-white mr-4"></div>
+                        Fetching live market data...
+                    </div>`;
+                }
+
+                const res = await fetch("/api/heatmap");
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                
+                const data = await res.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                if (!Array.isArray(data) || data.length === 0) {
+                    container.innerHTML = `<div class="w-full text-center p-20 text-white">No stock data available at the moment.</div>`;
+                    return;
+                }
+
+                populateSectorFilter(data);
+
+                const selectedSector = document.getElementById("sectorFilter")?.value || "all";
+                const selectedChange = document.getElementById("changeFilter")?.value || "all";
+
+                const filteredData = data.filter(stock => {
+                    const sectorOk = selectedSector === "all" || stock.sector === selectedSector;
+
+                    let changeOk = true;
+                    const change = Number(stock.change) || 0;
+
+                    if (selectedChange === "gainers") changeOk = change > 0.05;
+                    else if (selectedChange === "losers") changeOk = change < -0.05;
+                    else if (selectedChange === "neutral") changeOk = Math.abs(change) <= 0.05;
+
+                    return sectorOk && changeOk;
+                });
+
+                if (filteredData.length === 0) {
+                    container.innerHTML = `<div class="w-full text-center p-20 text-white">No stocks match the selected filters.</div>`;
+                    return;
+                }
+
+                const grouped = filteredData.reduce((acc, stock) => {
+                    const sector = stock.sector || "Others";
+                    if (!acc[sector]) acc[sector] = [];
+                    acc[sector].push(stock);
+                    return acc;
+                }, {});
+
+                container.innerHTML = "";
+
+                const sectorFlexMap = {
+                    "Finance": "2.4 1 30%",
+                    "Technology Services": "2.3 1 30%",
+                    "Consumer Non-Durables": "1.5 1 20%",
+                    "Consumer Durables": "1.5 1 20%",
+                    "Energy Minerals": "1.8 1 25%",
+                    "Non Energy Minerals": "1.5 1 20%",
+                    "Industrial Services": "1.2 1 15%",
+                    "Utilities": "1.2 1 15%",
+                    "Communications": "1.2 1 15%",
+                    "Process Industries": "1.2 1 15%",
+                    "Health Technology": "1.2 1 15%",
+                    "Others": "1.2 1 15%"
+                };
+
+                // Filter out empty sectors from sectorOrder
+                const activeSectors = sectorOrder.filter(s => grouped[s] && grouped[s].length > 0);
+                
+                // If a sector exists in data but not in sectorOrder, add it to the end
+                Object.keys(grouped).forEach(s => {
+                    if (!activeSectors.includes(s)) activeSectors.push(s);
+                });
+
+                activeSectors.forEach(sector => {
+                    const stocks = grouped[sector];
+                    if (!stocks || !stocks.length) return;
+
+                    const section = document.createElement("section");
+                    section.className = "sector-block";
+                    section.style.flex = sectorFlexMap[sector] || "1 1 20%";
+
+                    const title = document.createElement("div");
+                    title.className = "sector-title";
+                    title.textContent = sector;
+
+                    const inner = document.createElement("div");
+                    inner.className = "sector-inner";
+
+                    const totalWeight = stocks.reduce((sum, stock) => sum + Number(stock.weight || 1), 0);
+
+                    stocks.forEach(stock => {
+                        const change = Number(stock.change) || 0;
+                        const weight = Number(stock.weight || 1);
+                        const share = (weight / totalWeight) * 100;
+                        const logoUrl = getLogo(stock.domain);
+
+                        const tile = document.createElement("div");
+                        tile.className = `stock-tile ${createTileColor(change)}`;
+                        tile.title = `${stock.symbol}: ${change > 0 ? '+' : ''}${change.toFixed(2)}%`;
+
+                        // Responsive flex and height based on share
+                        tile.style.flex = `${Math.max(share, 5)} 1 0%`;
+                        tile.style.minHeight = share > 30 ? "140px" : share > 15 ? "100px" : "70px";
+
+                        tile.innerHTML = `
+                            ${logoUrl ? `
+                                <img class="stock-logo"
+                                     src="${logoUrl}"
+                                     alt="${stock.symbol}"
+                                     loading="lazy"
+                                     referrerpolicy="no-referrer"
+                                     onerror="this.style.display='none'" />
+                            ` : ""}
+                            <div class="stock-symbol">${stock.symbol}</div>
+                            <div class="stock-change">${change > 0 ? '+' : ''}${change.toFixed(2)}%</div>
+                        `;
+
+                        inner.appendChild(tile);
+                    });
+
+                    section.appendChild(title);
+                    section.appendChild(inner);
+                    container.appendChild(section);
+                });
+
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+            } catch (err) {
+                console.error("Heatmap error:", err);
+                container.innerHTML = `<div class="w-full text-center p-20 text-red-400">
+                    <p class="font-bold text-lg mb-2">Error Loading Heatmap</p>
+                    <p class="text-sm">${err.message || "Failed to fetch market data."}</p>
+                    <button onclick="loadHeatmap()" class="mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-white">Retry</button>
+                </div>`;
+            }
+        }
+
+        loadHeatmap();
+
+        document.getElementById("sectorFilter")?.addEventListener("change", loadHeatmap);
+        document.getElementById("changeFilter")?.addEventListener("change", loadHeatmap);
+
+        setInterval(loadHeatmap, 60000); // Update every minute
+
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

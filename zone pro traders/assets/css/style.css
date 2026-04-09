@@ -1,0 +1,527 @@
+/* ============================================================
+   ZONE PRO TRADER - MAIN STYLESHEET
+   ============================================================ */
+
+/* ============================================================
+   ROOT VARIABLES & THEME
+   ============================================================ */
+:root {
+    /* Primary Colors */
+    --primary: #4CAF50;
+    --primary-light: #81C784;
+    --primary-dark: #388E3C;
+    
+    /* Neutral Colors */
+    --white: #ffffff;
+    --black: #000000;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    
+    /* Background Colors */
+    --bg-primary: #fffefe;
+    --bg-secondary: #ffffff;
+    --bg-dark: #1e272e;
+    
+    /* Text Colors */
+    --text-heading: #2c3e50;
+    --text-primary: #34495e;
+    --text-secondary: #7f8c8d;
+    --text-light: #eff1f1;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-base: 0.3s ease-in-out;
+    --transition-slow: 0.5s ease-in-out;
+}
+
+/* ============================================================
+   GLOBAL STYLES
+   ============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    overflow-x: hidden;
+}
+
+/* ============================================================
+   IMAGES & LOGOS
+   ============================================================ */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Logo Styling - Universal */
+.site-logo,
+.logo,
+[class*="logo"] {
+    display: block !important;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    visibility: visible !important;
+    opacity: 1 !important;
+    mix-blend-mode: multiply;
+    filter: brightness(1.05) contrast(1.05);
+    transition: all var(--transition-base);
+}
+
+.site-logo:hover,
+.logo:hover {
+    transform: scale(1.08);
+    filter: brightness(1.1) contrast(1.1);
+}
+
+/* Badge Styling */
+.badge-multiply {
+    mix-blend-mode: multiply;
+    filter: brightness(1.05) contrast(1.05);
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-heading);
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.875rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* ============================================================
+   BACKGROUNDS
+   ============================================================ */
+.hero-bg {
+    background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%),
+                      url('../images/bg image.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--bg-dark);
+}
+
+.cta-bg {
+    background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%),
+                      url('../images/dark 2 bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--bg-dark);
+}
+
+.unique-bg {
+    background-image: linear-gradient(135deg, rgba(30, 30, 30, 0.85) 0%, rgba(30, 30, 30, 0.75) 100%),
+                      url('../images/prim bg.avif');
+    background-size: cover;
+    background-position: center;
+    background-color: #1e1e1e;
+}
+
+.faq-bg {
+    background-image: linear-gradient(135deg, rgba(30, 30, 30, 0.85) 0%, rgba(30, 30, 30, 0.75) 100%),
+                      url('../images/bg js 2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: #1e1e1e;
+}
+
+.courses-bg {
+    background-image: linear-gradient(135deg, rgba(30, 30, 30, 0.85) 0%, rgba(30, 30, 30, 0.75) 100%),
+                      url('../images/bg js3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: #1e1e1e;
+}
+
+/* ============================================================
+   CARD STYLES
+   ============================================================ */
+.card-hover {
+    transition: all var(--transition-base);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(76, 175, 80, 0.2);
+}
+
+/* ============================================================
+   WHATSAPP FLOATING BUTTON
+   ============================================================ */
+.whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: auto;
+    min-width: 180px;
+    height: 60px;
+    background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+    color: white;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+    z-index: 999;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 0 25px;
+    animation: pulse-green 2s infinite;
+    white-space: nowrap;
+}
+
+@keyframes pulse-green {
+    0%, 100% {
+        box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+    }
+    50% {
+        box-shadow: 0 12px 35px rgba(76, 175, 80, 0.5);
+    }
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-5px) scale(1.05);
+    animation: none;
+    box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
+}
+
+.whatsapp-float svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Mobile WhatsApp Button */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 56px;
+        min-width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        padding: 0;
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+    
+    .whatsapp-float span {
+        display: none;
+    }
+    
+    .whatsapp-float svg {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* ============================================================
+   REVIEWS SECTION
+   ============================================================ */
+.reviews-section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+    background-color: var(--white);
+    text-align: center;
+}
+
+.reviews-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-heading);
+}
+
+.reviews-header h2 span {
+    color: var(--primary);
+    display: block;
+}
+
+.reviews-header p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+    font-size: 1.1rem;
+}
+
+/* Reviews Grid/Carousel */
+.scroll-grid-viewport {
+    height: 600px;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%);
+    border-radius: 1rem;
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-lg);
+}
+
+.fade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(to bottom, 
+        rgba(255, 254, 254, 0.8) 0%, 
+        transparent 15%, 
+        transparent 85%, 
+        rgba(255, 254, 254, 0.8) 100%
+    );
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    height: 100%;
+}
+
+.scroll-column {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.scroll-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.scroll-content img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
+    transition: all var(--transition-base);
+}
+
+.scroll-content img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+}
+
+.move-up {
+    animation: scroll-up 40s linear infinite;
+}
+
+.move-down {
+    animation: scroll-down 45s linear infinite;
+}
+
+.scroll-content:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-up {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+@keyframes scroll-down {
+    0% { transform: translateY(-50%); }
+    100% { transform: translateY(0); }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-top {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-in-bottom {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.fade-in { animation: fade-in var(--transition-base); }
+.slide-in-top { animation: slide-in-top var(--transition-base); }
+.slide-in-bottom { animation: slide-in-bottom var(--transition-base); }
+.slide-in-left { animation: slide-in-left var(--transition-base); }
+.slide-in-right { animation: slide-in-right var(--transition-base); }
+.bounce { animation: bounce 1s ease-in-out; }
+
+/* ============================================================
+   TICKER ANIMATION
+   ============================================================ */
+@keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.animate-ticker {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: ticker 25s linear infinite;
+}
+
+.animate-ticker:hover {
+    animation-play-state: paused;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 1024px) {
+    h1 { font-size: 2.25rem; }
+    h2 { font-size: 1.875rem; }
+    h3 { font-size: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 1.875rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+    
+    .reviews-header h2 {
+        font-size: 1.875rem;
+    }
+    
+    .scroll-grid-viewport {
+        height: 400px;
+    }
+    
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.25rem; }
+    h3 { font-size: 1rem; }
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
